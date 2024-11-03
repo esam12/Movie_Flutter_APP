@@ -8,7 +8,7 @@ sealed class MovieCarouselEvent extends Equatable {
 }
 
 class CarouselLoadEvent extends MovieCarouselEvent {
-  final int defaultIndex;
+  final int defaultIndex ;
 
   const CarouselLoadEvent(this.defaultIndex)
       : assert(defaultIndex >= 0, 'defaultIndex must be greater than 0');

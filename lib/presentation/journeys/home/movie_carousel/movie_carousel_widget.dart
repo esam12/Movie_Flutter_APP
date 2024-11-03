@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movieapp/domain/entities/movie_entity.dart';
+import 'package:movieapp/presentation/journeys/home/movie_carousel/movie_backdrop_widget.dart';
+import 'package:movieapp/presentation/journeys/home/movie_carousel/movie_data_widget.dart';
 import 'package:movieapp/presentation/journeys/home/movie_carousel/movie_page_view.dart';
 import 'package:movieapp/presentation/widgets/movie_app_bar.dart';
+import 'package:movieapp/presentation/widgets/separator.dart';
 
 class MovieCarouselWidget extends StatelessWidget {
   const MovieCarouselWidget(
@@ -13,12 +16,19 @@ class MovieCarouselWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        MovieAppBar(),
-        MoviePageView(
-          movies: movies,
-          initialPage: defaultIndex,
+        const MovieBackdropWidget(),
+        Column(
+          children: [
+            const MovieAppBar(),
+            MoviePageView(
+              movies: movies,
+              initialPage: defaultIndex,
+            ),
+            const MovieDataWidget(),
+            const Separator(),
+          ],
         ),
       ],
     );
