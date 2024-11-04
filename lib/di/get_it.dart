@@ -10,6 +10,7 @@ import 'package:movieapp/domain/usecases/get_popular.dart';
 import 'package:movieapp/domain/usecases/get_trending.dart';
 import 'package:movieapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:movieapp/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 
 final getItInstance = GetIt.I;
 
@@ -40,4 +41,12 @@ Future init() async {
       ));
 
   getItInstance.registerFactory(() => MovieBackdropBloc());
+
+  getItInstance.registerFactory(
+    () => MovieTabbedBloc(
+      getPopular: GetPopular(getItInstance()),
+      playingNow: GetPlayingNow(getItInstance()),
+      comingSoon: GetComingSoon(getItInstance()),
+    ),
+  );
 }
