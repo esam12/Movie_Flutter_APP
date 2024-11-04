@@ -47,10 +47,13 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
                 for (int i = 0; i < MovieTabbedConstants.movieTab.length; i++)
                   TabTitleWidget(
                     title: MovieTabbedConstants.movieTab[i].title,
+                    isSelected: MovieTabbedConstants.movieTab[i].index ==
+                        state.currentTabIndex,
                     onTap: () => _onTabTabbed(i),
                   ),
               ],
             ),
+            SizedBox(height: Sizes.dimen_16.h),
             if (state is MovieTabChanged)
               Expanded(
                 child: MovieListViewBuilder(
@@ -64,7 +67,6 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
   }
 
   void _onTabTabbed(int index) {
-    movieTabbedBloc
-        .add(MovieTabChangedEvent(currentTabIndex: index));
+    movieTabbedBloc.add(MovieTabChangedEvent(currentTabIndex: index));
   }
 }
