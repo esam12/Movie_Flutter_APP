@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/common/constants/size_constants.dart';
 import 'package:movieapp/domain/entities/movie_entity.dart';
 import 'package:movieapp/presentation/journeys/home/movie_carousel/movie_backdrop_widget.dart';
 import 'package:movieapp/presentation/journeys/home/movie_carousel/movie_data_widget.dart';
 import 'package:movieapp/presentation/journeys/home/movie_carousel/movie_page_view.dart';
 import 'package:movieapp/presentation/widgets/movie_app_bar.dart';
 import 'package:movieapp/presentation/widgets/separator.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MovieCarouselWidget extends StatelessWidget {
   const MovieCarouselWidget(
@@ -26,7 +28,9 @@ class MovieCarouselWidget extends StatelessWidget {
               movies: movies,
               initialPage: defaultIndex,
             ),
+            SizedBox(height: Sizes.dimen_8.h),
             const MovieDataWidget(),
+            SizedBox(height: Sizes.dimen_8.h),
             const Separator(),
           ],
         ),
