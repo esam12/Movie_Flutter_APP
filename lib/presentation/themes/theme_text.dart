@@ -13,10 +13,21 @@ class ThemeText {
         fontSize: Sizes.dimen_20.sp,
         color: Colors.white,
       );
+  static TextStyle get _whiteHeadlineSmall =>
+      _poppinsTextTheme.headlineSmall!.copyWith(
+        fontSize: Sizes.dimen_18.sp,
+        color: Colors.white,
+      );
   static TextStyle get whiteTitleMedium =>
       _poppinsTextTheme.titleMedium!.copyWith(
         fontSize: Sizes.dimen_16.sp,
         color: Colors.white,
+      );
+
+  static TextStyle get whiteLabelSmall =>
+      _poppinsTextTheme.labelSmall!.copyWith(
+        color: Colors.white,
+        fontSize: Sizes.dimen_12.sp,
       );
 
   static TextStyle get whiteBodyMedium =>
@@ -30,6 +41,8 @@ class ThemeText {
 
   static getTextTheme() => TextTheme(
         headlineMedium: _whiteHeadlineMedium,
+        headlineSmall: _whiteHeadlineSmall,
+        labelSmall: whiteLabelSmall,
         titleMedium: whiteTitleMedium,
         bodyMedium: whiteBodyMedium,
       );

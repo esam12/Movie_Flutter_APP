@@ -5,5 +5,7 @@
     "about": "Hakkında",
     "popular": "POPULAR",
     "now": "Şimdi",
-    "soon": "Yakın"
+    "soon": "Yakın",
+    "okay": "Tamam",
+    "aboutDescription": "Bu uygulama TMDb API'ye sahip ancak TMDb'a sahip değildir. Bu uygulama kullanıcı deneyimini artırmak için geliştirilmiştir."
 }

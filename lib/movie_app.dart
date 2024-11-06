@@ -9,6 +9,7 @@ import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
 import 'package:movieapp/presentation/journeys/home/home_screen.dart';
 import 'package:movieapp/presentation/themes/app_color.dart';
 import 'package:movieapp/presentation/themes/theme_text.dart';
+import 'package:movieapp/presentation/wiredash_app.dart';
 
 class MovieApp extends StatefulWidget {
   const MovieApp({super.key});
@@ -43,25 +44,27 @@ class _MovieAppState extends State<MovieApp> {
           child: BlocBuilder<LanguageBloc, LanguageState>(
             builder: (context, state) {
               if (state is LanguageLoaded) {
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Movie App',
-                  theme: ThemeData(
-                    primaryColor: AppColor.vulcan,
-                    scaffoldBackgroundColor: AppColor.vulcan,
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    textTheme: ThemeText.getTextTheme(),
-                    appBarTheme: const AppBarTheme(elevation: 0),
+                return WiredashApp(
+                  child: MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    title: 'Movie App',
+                    theme: ThemeData(
+                      primaryColor: AppColor.vulcan,
+                      scaffoldBackgroundColor: AppColor.vulcan,
+                      visualDensity: VisualDensity.adaptivePlatformDensity,
+                      textTheme: ThemeText.getTextTheme(),
+                      appBarTheme: const AppBarTheme(elevation: 0),
+                    ),
+                    supportedLocales:
+                        Languages.languages.map((e) => Locale(e.code)).toList(),
+                    locale: state.locale,
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                    ],
+                    home: const HomeScreen(),
                   ),
-                  supportedLocales:
-                      Languages.languages.map((e) => Locale(e.code)).toList(),
-                  locale: state.locale,
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  home: const HomeScreen(),
                 );
               }
               return const SizedBox.shrink();

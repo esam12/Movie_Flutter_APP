@@ -8,7 +8,9 @@ import 'package:movieapp/common/extensions/string_extensions.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
 import 'package:movieapp/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:movieapp/presentation/journeys/drawer/navigation_list_item.dart';
+import 'package:movieapp/presentation/widgets/app_dialog.dart';
 import 'package:movieapp/presentation/widgets/logo.dart';
+import 'package:wiredash/wiredash.dart';
 
 class MNavigationDrawer extends StatelessWidget {
   const MNavigationDrawer({super.key});
@@ -54,14 +56,32 @@ class MNavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstants.feedback.t(context),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+                Wiredash.of(context).show();
+              },
             ),
             NavigationListItem(
               title: TranslationConstants.about.t(context),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+                _showDialog(context);
+              },
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AppDialog(
+        title: TranslationConstants.about,
+        description: TranslationConstants.aboutDescription,
+        buttonText: TranslationConstants.okay,
+        image: Image.asset('assets/pngs/tmdb_logo.png'),
       ),
     );
   }
