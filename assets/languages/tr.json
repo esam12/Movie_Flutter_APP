@@ -7,5 +7,9 @@
     "now": "Şimdi",
     "soon": "Yakın",
     "okay": "Tamam",
-    "aboutDescription": "Bu uygulama TMDb API'ye sahip ancak TMDb'a sahip değildir. Bu uygulama kullanıcı deneyimini artırmak için geliştirilmiştir."
+    "aboutDescription": "Bu uygulama TMDb API'ye sahip ancak TMDb'a sahip değildir. Bu uygulama kullanıcı deneyimini artırmak için geliştirilmiştir.",
+    "retry": "Tekrar Dene",
+    "somethingWentWrong": "Bir şeyler yanlış gitti...",
+    "checkNetwork": "Lütfen bağlantınızı kontrol edin ve Tekrar Dene düğmesine basın veya Geri bildirim düğmesine basın.",
+    "noMovies": "Üzgünüz, bu bölümde filmler yok"
 }

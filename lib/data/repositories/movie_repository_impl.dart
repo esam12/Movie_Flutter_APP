@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:movieapp/data/data_sources/movie_remote_data_source.dart';
 import 'package:movieapp/data/models/movie_model.dart';
@@ -14,8 +16,10 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final movies = await remoteDataSource.getTrending();
       return Right(movies);
-    } catch (e) {
-      return Left(AppError(e.toString()));
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
     }
   }
 
@@ -24,8 +28,10 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final movies = await remoteDataSource.getComingSoon();
       return Right(movies);
-    } catch (e) {
-      return Left(AppError(e.toString()));
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
     }
   }
 
@@ -34,8 +40,10 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final movies = await remoteDataSource.getPlayingNow();
       return Right(movies);
-    } catch (e) {
-      return Left(AppError(e.toString()));
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
     }
   }
 
@@ -44,8 +52,10 @@ class MovieRepositoryImpl implements MovieRepository {
     try {
       final movies = await remoteDataSource.getPopular();
       return Right(movies);
-    } catch (e) {
-      return Left(AppError(e.toString()));
+    } on SocketException {
+      return const Left(AppError(AppErrorType.network));
+    } on Exception {
+      return const Left(AppError(AppErrorType.api));
     }
   }
 }

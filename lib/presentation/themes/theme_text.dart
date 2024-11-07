@@ -33,7 +33,7 @@ class ThemeText {
   static TextStyle get whiteBodyMedium =>
       _poppinsTextTheme.bodyMedium!.copyWith(
         color: Colors.white,
-        fontSize: Sizes.dimen_14.sp,
+        fontSize: Sizes.dimen_12.sp,
         wordSpacing: 0.25,
         letterSpacing: 0.25,
         height: 1.5,

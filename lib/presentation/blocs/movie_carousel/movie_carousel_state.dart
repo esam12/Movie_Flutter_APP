@@ -20,7 +20,7 @@ final class MovieCarouselLoaded extends MovieCarouselState {
 }
 
 final class MovieCarouselError extends MovieCarouselState {
-  final String message;
+  final AppErrorType errorType;
 
-  const MovieCarouselError(this.message);
+  const MovieCarouselError(this.errorType);
 }
