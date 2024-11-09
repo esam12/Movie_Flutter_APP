@@ -4,11 +4,13 @@ import 'package:movieapp/data/core/api_client.dart';
 import 'package:movieapp/data/data_sources/movie_remote_data_source.dart';
 import 'package:movieapp/data/repositories/movie_repository_impl.dart';
 import 'package:movieapp/domain/repositories/movie_repository.dart';
+import 'package:movieapp/domain/usecases/get_cast_crew.dart';
 import 'package:movieapp/domain/usecases/get_coming_soon.dart';
 import 'package:movieapp/domain/usecases/get_movie_detail.dart';
 import 'package:movieapp/domain/usecases/get_playing_now.dart';
 import 'package:movieapp/domain/usecases/get_popular.dart';
 import 'package:movieapp/domain/usecases/get_trending.dart';
+import 'package:movieapp/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -38,6 +40,9 @@ Future init() async {
   getItInstance.registerLazySingleton<GetMovieDetail>(
       () => GetMovieDetail(getItInstance()));
 
+  getItInstance.registerLazySingleton<GetCastCrew>(
+    () => GetCastCrew(movieRepository: getItInstance()),
+  );
   getItInstance.registerLazySingleton<MovieRepository>(
       () => MovieRepositoryImpl(getItInstance()));
 
@@ -59,6 +64,15 @@ Future init() async {
   getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
 
   getItInstance.registerFactory(
-    () => MovieDetailBloc(getMovieDetail: getItInstance()),
+    () => MovieDetailBloc(
+      getMovieDetail: getItInstance(),
+      castBloc: getItInstance(),
+    ),
+  );
+
+  getItInstance.registerFactory(
+    () => CastBloc(
+      getCastCrew: getItInstance(),
+    ),
   );
 }
