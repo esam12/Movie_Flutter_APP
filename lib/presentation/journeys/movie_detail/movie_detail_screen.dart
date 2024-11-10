@@ -6,10 +6,12 @@ import 'package:movieapp/common/extensions/string_extensions.dart';
 import 'package:movieapp/di/get_it.dart';
 import 'package:movieapp/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_detail/movie_detail_bloc.dart';
+import 'package:movieapp/presentation/blocs/videos/videos_bloc.dart';
 import 'package:movieapp/presentation/journeys/movie_detail/big_poster.dart';
 import 'package:movieapp/presentation/journeys/movie_detail/cast_widget.dart';
 import 'package:movieapp/presentation/journeys/movie_detail/movie_detail_arguments.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movieapp/presentation/journeys/movie_detail/videos_widget.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   const MovieDetailScreen({super.key, required this.movieDetailArguments})
@@ -25,6 +27,7 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   late MovieDetailBloc _movieDetailBloc;
   late CastBloc _castBloc;
+  late VideosBloc _videosBloc;
 
   @override
   void initState() {
@@ -32,6 +35,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
     _movieDetailBloc = getItInstance<MovieDetailBloc>();
     _castBloc = _movieDetailBloc.castBloc;
+    _videosBloc = _movieDetailBloc.videosBloc;
     _movieDetailBloc.add(
       MovieDetailLoadEvent(widget.movieDetailArguments.id),
     );
@@ -41,6 +45,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   void dispose() {
     super.dispose();
     _movieDetailBloc.close();
+    _castBloc.close();
+    _videosBloc.close();
   }
 
   @override
@@ -50,6 +56,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         providers: [
           BlocProvider.value(value: _movieDetailBloc),
           BlocProvider.value(value: _castBloc),
+          BlocProvider.value(value: _videosBloc),
         ],
         child: BlocBuilder<MovieDetailBloc, MovieDetailState>(
           builder: (context, state) {
@@ -82,6 +89,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       ),
                     ),
                     const CastWidget(),
+                    VideosWidget(videosBloc: _videosBloc),
                   ],
                 ),
               );

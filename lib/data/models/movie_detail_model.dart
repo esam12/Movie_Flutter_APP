@@ -4,7 +4,7 @@ class MovieDetailModel extends MovieDetailEntity {
   MovieDetailModel({
     required this.adult,
     required this.backdropPath,
-    this.belongsToCollection,
+    required this.belongsToCollection,
     required this.budget,
     required this.genres,
     required this.homepage,
@@ -37,67 +37,67 @@ class MovieDetailModel extends MovieDetailEntity {
           backdropPath: backdropPath,
           posterPath: posterPath,
         );
-  late final bool adult;
-  late final String backdropPath;
-  late final Null belongsToCollection;
-  late final int budget;
-  late final List<Genres> genres;
-  late final String homepage;
-  late final int id;
-  late final String imdbId;
-  late final List<String> originCountry;
-  late final String originalLanguage;
-  late final String originalTitle;
-  late final String overview;
-  late final double popularity;
-  late final String posterPath;
-  late final List<ProductionCompanies> productionCompanies;
-  late final List<ProductionCountries> productionCountries;
-  late final String releaseDate;
-  late final int revenue;
-  late final int runtime;
-  late final List<SpokenLanguages> spokenLanguages;
-  late final String status;
-  late final String tagline;
-  late final String title;
-  late final bool video;
-  late final double voteAverage;
-  late final int voteCount;
+  final bool adult;
+  final String backdropPath;
+  final String belongsToCollection;
+  final int budget;
+  final List<Genres> genres;
+  final String homepage;
+  final int id;
+  final String imdbId;
+  final List<String> originCountry;
+  final String originalLanguage;
+  final String originalTitle;
+  final String overview;
+  final double popularity;
+  final String posterPath;
+  final List<ProductionCompanies> productionCompanies;
+  final List<ProductionCountries> productionCountries;
+  final String releaseDate;
+  final int revenue;
+  final int runtime;
+  final List<SpokenLanguages> spokenLanguages;
+  final String status;
+  final String tagline;
+  final String title;
+  final bool video;
+  final double voteAverage;
+  final int voteCount;
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) {
     return MovieDetailModel(
-      adult: json['adult'],
-      backdropPath: json['backdrop_path'],
-      belongsToCollection: null,
-      budget: json['budget'],
+      adult: json['adult'] ?? false,
+      backdropPath: json['backdrop_path'] ?? '',
+      belongsToCollection: json['belongs_to_collection'] ?? '',
+      budget: json['budget'] ?? 0,
       genres: List.from(json['genres']).map((e) => Genres.fromJson(e)).toList(),
-      homepage: json['homepage'],
-      id: json['id'],
-      imdbId: json['imdb_id'],
+      homepage: json['homepage'] ?? '',
+      id: json['id'] ?? 0,
+      imdbId: json['imdb_id'] ?? '',
       originCountry: List.castFrom<dynamic, String>(json['origin_country']),
-      originalLanguage: json['original_language'],
-      originalTitle: json['original_title'],
-      overview: json['overview'],
-      popularity: json['popularity'],
-      posterPath: json['poster_path'],
+      originalLanguage: json['original_language'] ?? '',
+      originalTitle: json['original_title'] ?? '',
+      overview: json['overview'] ?? '',
+      popularity: json['popularity'] ?? '',
+      posterPath: json['poster_path'] ?? '',
       productionCompanies: List.from(json['production_companies'])
           .map((e) => ProductionCompanies.fromJson(e))
           .toList(),
       productionCountries: List.from(json['production_countries'])
           .map((e) => ProductionCountries.fromJson(e))
           .toList(),
-      releaseDate: json['release_date'],
-      revenue: json['revenue'],
-      runtime: json['runtime'],
+      releaseDate: json['release_date'] ?? '',
+      revenue: json['revenue'] ?? 0,
+      runtime: json['runtime'] ?? 0,
       spokenLanguages: List.from(json['spoken_languages'])
           .map((e) => SpokenLanguages.fromJson(e))
           .toList(),
-      status: json['status'],
-      tagline: json['tagline'],
-      title: json['title'],
-      video: json['video'],
-      voteAverage: json['vote_average'],
-      voteCount: json['vote_count'],
+      status: json['status'] ?? '',
+      tagline: json['tagline'] ?? '',
+      title: json['title'] ?? '',
+      video: json['video'] ?? false,
+      voteAverage: json['vote_average'] ?? 0.0,
+      voteCount: json['vote_count'] ?? 0,
     );
   }
 
@@ -170,9 +170,9 @@ class ProductionCompanies {
 
   ProductionCompanies.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    logoPath = json['logo_path'];
-    name = json['name'];
-    originCountry = json['origin_country'];
+    logoPath = json['logo_path'] ?? '';
+    name = json['name'] ?? '';
+    originCountry = json['origin_country'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
