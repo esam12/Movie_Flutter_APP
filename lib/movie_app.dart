@@ -50,6 +50,7 @@ class _MovieAppState extends State<MovieApp> {
                     title: 'Movie App',
                     theme: ThemeData(
                       primaryColor: AppColor.vulcan,
+                      colorScheme: const ColorScheme.dark(),
                       scaffoldBackgroundColor: AppColor.vulcan,
                       visualDensity: VisualDensity.adaptivePlatformDensity,
                       textTheme: ThemeText.getTextTheme(),

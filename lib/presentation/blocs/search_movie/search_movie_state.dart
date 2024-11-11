@@ -18,6 +18,13 @@ final class SearchMovieLoaded extends SearchMovieState {
   List<Object> get props => [movies];
 }
 
-final class SearchMovieError extends SearchMovieState {}
+final class SearchMovieError extends SearchMovieState {
+  final AppErrorType errorType;
+
+  const SearchMovieError(this.errorType);
+
+  @override
+  List<Object> get props => [errorType];
+}
 
 final class SearchMovieLoading extends SearchMovieState {}

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieapp/common/constants/translation_constants.dart';
 import 'package:movieapp/common/extensions/string_extensions.dart';
-import 'package:movieapp/domain/entities/app_error.dart';
 import 'package:movieapp/presentation/blocs/search_movie/search_movie_bloc.dart';
 import 'package:movieapp/presentation/journeys/home/movie_carousel/app_error_widget.dart';
 import 'package:movieapp/presentation/journeys/search_movies/search_movie_card.dart';
@@ -17,9 +16,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     return Theme.of(context).copyWith(
-      appBarTheme: const AppBarTheme(color: AppColor.vulcan),
       inputDecorationTheme: InputDecorationTheme(
-        alignLabelWithHint: true,
         hintStyle: Theme.of(context)
             .textTheme
             .bodySmall!
@@ -66,7 +63,7 @@ class CustomSearchDelegate extends SearchDelegate {
       builder: (context, state) {
         if (state is SearchMovieError) {
           return AppErrorWidget(
-            errorType: AppErrorType.api,
+            errorType: state.errorType,
             onPressed: () => searchMovieBloc.add(
               SearchTermChangedEvent(searchTerm: query),
             ),
@@ -77,9 +74,13 @@ class CustomSearchDelegate extends SearchDelegate {
             return Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 64.w),
-                child: Text(TranslationConstants.noMovies.t(
-                  context,
-                )),
+                child: Text(
+                  TranslationConstants.noMovies.t(
+                    context,
+                  ),
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
               ),
             );
           }
@@ -88,6 +89,7 @@ class CustomSearchDelegate extends SearchDelegate {
               movie: movies[index],
             ),
             itemCount: movies.length,
+            scrollDirection: Axis.vertical,
           );
         } else {
           return const SizedBox.shrink();
