@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:movieapp/data/core/api_client.dart';
+import 'package:movieapp/data/data_sources/movie_local_data_source.dart';
 import 'package:movieapp/data/data_sources/movie_remote_data_source.dart';
 import 'package:movieapp/data/repositories/movie_repository_impl.dart';
 import 'package:movieapp/domain/repositories/movie_repository.dart';
@@ -31,6 +32,8 @@ Future init() async {
 
   getItInstance.registerLazySingleton<MovieRemoteDataSource>(
       () => MovieRemoteDataSourceImpl(client: getItInstance()));
+  getItInstance.registerLazySingleton<MovieLocalDataSource>(
+      () => MovieLocalDataSourceImpl());
 
   getItInstance
       .registerLazySingleton<GetTrending>(() => GetTrending(getItInstance()));
@@ -53,8 +56,9 @@ Future init() async {
   getItInstance.registerLazySingleton<SearchMovies>(
     () => SearchMovies(movieRepository: getItInstance()),
   );
+
   getItInstance.registerLazySingleton<MovieRepository>(
-      () => MovieRepositoryImpl(getItInstance()));
+      () => MovieRepositoryImpl(getItInstance(), getItInstance()));
 
   getItInstance.registerFactory(() => MovieCarouselBloc(
         getItInstance(),
