@@ -18,6 +18,7 @@ import 'package:movieapp/domain/usecases/get_videos.dart';
 import 'package:movieapp/domain/usecases/save_movie.dart';
 import 'package:movieapp/domain/usecases/search_movies.dart';
 import 'package:movieapp/presentation/blocs/cast/cast_bloc.dart';
+import 'package:movieapp/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -120,5 +121,12 @@ Future init() async {
     () => SearchMovieBloc(
       searchMovies: getItInstance(),
     ),
+  );
+  getItInstance.registerFactory(
+    () => FavoriteBloc(
+        saveMovie: getItInstance(),
+        getFavoriteMovies: getItInstance(),
+        deleteFavoriteMovie: getItInstance(),
+        checkIfFavoriteMovie: getItInstance()),
   );
 }
