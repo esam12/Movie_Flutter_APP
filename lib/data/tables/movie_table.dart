@@ -33,6 +33,7 @@ class MovieTable extends MovieEntity {
       id: movieEntity.id,
       title: movieEntity.title,
       posterPath: movieEntity.posterPath,
+      
     );
   }
 }

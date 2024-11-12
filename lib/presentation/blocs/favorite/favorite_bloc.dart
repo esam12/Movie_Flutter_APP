@@ -40,10 +40,10 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
           (r) => emit(IsFavoriteMovie(r)),
         );
       } else if (event is LoadFavoriteMovieEvent) {
-        _fetchLoadFavoriteMovies();
+        await _fetchLoadFavoriteMovies();
       } else if (event is DeleteFavoriteMovieEvent) {
         await deleteFavoriteMovie(MovieParams(id: event.movieId));
-        _fetchLoadFavoriteMovies();
+        await _fetchLoadFavoriteMovies();
       } else if (event is CheckIfFavoriteMovieEvent) {
         final response =
             await checkIfFavoriteMovie(MovieParams(id: event.movieId));
@@ -55,12 +55,12 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     });
   }
 
-  void _fetchLoadFavoriteMovies() async {
+  Future<void> _fetchLoadFavoriteMovies() async {
     final Either<AppError, List<MovieEntity>> response =
         await getFavoriteMovies(NoParams());
     response.fold(
-      (l) => FavoriteMoviesError(),
-      (r) => FavoriteMoviesLoaded(r),
+      (l) => emit(FavoriteMoviesError()),
+      (r) => emit(FavoriteMoviesLoaded(r)),
     );
   }
 }

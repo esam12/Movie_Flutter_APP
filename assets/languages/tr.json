@@ -13,5 +13,6 @@
     "checkNetwork": "Lütfen bağlantınızı kontrol edin ve Tekrar Dene düğmesine basın veya Geri bildirim düğmesine basın.",
     "noMovies": "Üzgünüz, bu bölümde filmler yok",
     "cast": "Kadro",
-    "watchTarilers": "Fragmanları İzle"
+    "watchTarilers": "Fragmanları İzle",
+    "noFavoriteMovies": "Favori Filmler Yok"
 }

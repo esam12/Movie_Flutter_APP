@@ -67,9 +67,7 @@ Future init() async {
   getItInstance.registerLazySingleton<GetFavoriteMovies>(
     () => GetFavoriteMovies(getItInstance()),
   );
-  getItInstance.registerLazySingleton<GetFavoriteMovies>(
-    () => GetFavoriteMovies(getItInstance()),
-  );
+
   getItInstance.registerLazySingleton<DeleteFavoriteMovie>(
     () => DeleteFavoriteMovie(getItInstance()),
   );
@@ -102,6 +100,7 @@ Future init() async {
       getMovieDetail: getItInstance(),
       castBloc: getItInstance(),
       videosBloc: getItInstance(),
+      favoriteBloc: getItInstance(),
     ),
   );
 

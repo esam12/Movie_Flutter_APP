@@ -2,12 +2,12 @@ part of 'favorite_bloc.dart';
 
 sealed class FavoriteEvent extends Equatable {
   const FavoriteEvent();
+}
 
+class LoadFavoriteMovieEvent extends FavoriteEvent {
   @override
   List<Object> get props => [];
 }
-
-class LoadFavoriteMovieEvent extends FavoriteEvent {}
 
 class DeleteFavoriteMovieEvent extends FavoriteEvent {
   final int movieId;
@@ -28,7 +28,6 @@ class ToggleFavoriteMovieEvent extends FavoriteEvent {
   @override
   List<Object> get props => [movie, isFavorite];
 }
-
 
 class CheckIfFavoriteMovieEvent extends FavoriteEvent {
   final int movieId;

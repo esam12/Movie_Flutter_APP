@@ -1,11 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:http/http.dart';
 import 'package:movieapp/data/tables/movie_table.dart';
-import 'package:movieapp/domain/entities/movie_entity.dart';
 
 abstract class MovieLocalDataSource {
   Future<void> saveMovie(MovieTable movieTable);
-  Future<List<MovieEntity>> getMovies();
+  Future<List<MovieTable>> getMovies();
   Future<void> deleteMovie(int movieId);
   Future<bool> checkIfMovieFavorite(int movieId);
 }
@@ -24,13 +22,10 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   }
 
   @override
-  Future<List<MovieEntity>> getMovies() async {
+  Future<List<MovieTable>> getMovies() async {
     final movieBox = await Hive.openBox('movieBox');
-    final movieIds = movieBox.values;
-    List<MovieEntity> movies = [];
-    movieIds.forEach((movieId) {
-      movies.add(movieBox.get(movieId));
-    });
+    final movies = movieBox.values.toList().cast<MovieTable>();
+
     return movies;
   }
 

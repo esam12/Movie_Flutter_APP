@@ -39,7 +39,7 @@ class MovieDetailModel extends MovieDetailEntity {
         );
   final bool adult;
   final String backdropPath;
-  final String belongsToCollection;
+  final dynamic belongsToCollection;
   final int budget;
   final List<Genres> genres;
   final String homepage;
