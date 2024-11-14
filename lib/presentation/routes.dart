@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:movieapp/common/constants/route_constants.dart';
+import 'package:movieapp/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:movieapp/presentation/journeys/home/home_screen.dart';
 import 'package:movieapp/presentation/journeys/movie_detail/movie_detail_arguments.dart';
 import 'package:movieapp/presentation/journeys/movie_detail/movie_detail_screen.dart';
@@ -14,5 +15,6 @@ class Routes {
         RouteList.watchTrailer: (context) => WatchVideoScreen(
               watchVideoArguments: setting.arguments as WatchVideoArguments,
             ),
+        RouteList.favorite: (context) => const FavoriteScreen(),
       };
 }

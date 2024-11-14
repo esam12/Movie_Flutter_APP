@@ -73,7 +73,7 @@ class _MovieAppState extends State<MovieApp> {
                     initialRoute: RouteList.initial,
                     onGenerateRoute: (RouteSettings settings) {
                       final routes = Routes.getRoutes(settings);
-                      final WidgetBuilder builder = routes[settings.name]!;
+                      final WidgetBuilder builder = routes[settings.name] ?? routes[RouteList.initial]!;
                       return FadePageRouteBuilder(
                         builder: builder,
                         settings: settings,
