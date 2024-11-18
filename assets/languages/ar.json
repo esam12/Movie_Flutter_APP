@@ -14,6 +14,16 @@
     "noMovies": "عذراً، لا يوجد أفلام في هذه القسم",
     "cast": "الممثلين",
     "watchTarilers": "مشاهدة التريلرز",
-    "noFavoriteMovies": "لا يوجد أفلام مفضلة"
+    "noFavoriteMovies": "لا يوجد أفلام مفضلة",
+    "loginToMovieApp": "تسجيل الدخول للتطبيق من TMDb",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "signIn": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "wrongUsernamePassword": "اسم المستخدم أو الإيميل الإلكتروني غير صحيح",
+    "noNetwork": "لا يوجد اتصال بالشبكة",
+    "sessionDenied": "تم رفض الجلسة",
+    "enterTMDbUsername": "أدخل اسم المستخدم هنا...",
+    "enterPassword": "أدخل كلمة المرور هنا..."
 
 }
