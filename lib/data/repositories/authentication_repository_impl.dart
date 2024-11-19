@@ -54,7 +54,14 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
   }
 
   @override
-  Future<Either<AppError, void>> logoutUser() {
-    throw UnimplementedError();
+  Future<Either<AppError, void>> logoutUser() async {
+    final sessionId = await _authenticationLocalDataSource.getSessionId();
+
+    await Future.wait([
+      _authenticationRemoteDataSource.deleteSession(sessionId),
+      _authenticationLocalDataSource.deleteSessionId(),
+    ]);
+
+    return const Right(Unit);
   }
 }

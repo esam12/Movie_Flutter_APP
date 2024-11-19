@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movieapp/common/constants/route_constants.dart';
 import 'package:movieapp/common/constants/size_constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movieapp/common/constants/translation_constants.dart';
 import 'package:movieapp/common/extensions/string_extensions.dart';
+import 'package:movieapp/presentation/blocs/login/login_bloc.dart';
 import 'package:movieapp/presentation/journeys/login/label_field_widget.dart';
 import 'package:movieapp/presentation/widgets/button.dart';
 
@@ -75,9 +78,38 @@ class _LoginFormState extends State<LoginForm> {
               isPasswordField: true,
             ),
             SizedBox(height: Sizes.dimen_16.h),
+            BlocConsumer<LoginBloc, LoginState>(
+                buildWhen: (previous, current) => current is LoginError,
+                builder: (context, state) {
+                  if (state is LoginError) {
+                    return Text(
+                      state.message,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Colors.orangeAccent,
+                          ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+                listenWhen: (previous, current) => current is LoginSuccess,
+                listener: (context, state) {
+                  if (state is LoginSuccess) {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        RouteList.home, (route) => false);
+                  }
+                }),
             Button(
               title: TranslationConstants.signIn.t(context),
-              onTap: () {},
+              onTap: enableSignIn
+                  ? () {
+                      BlocProvider.of<LoginBloc>(context).add(
+                        LoginInitiateEvent(
+                          username: _usernameController.text,
+                          password: _passwordController.text,
+                        ),
+                      );
+                    }
+                  : null,
               isEnabled: enableSignIn,
             )
           ],
