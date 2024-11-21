@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movieapp/common/constants/size_constants.dart';
 import 'package:movieapp/di/get_it.dart';
 import 'package:movieapp/domain/usecases/search_movies.dart';
+import 'package:movieapp/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movieapp/presentation/blocs/search_movie/search_movie_bloc.dart';
 import 'package:movieapp/presentation/journeys/search_movies/custom_search_delegate.dart';
 import 'package:movieapp/presentation/widgets/logo.dart';
@@ -38,7 +39,9 @@ class MovieAppBar extends StatelessWidget {
               showSearch(
                 context: context,
                 delegate: CustomSearchDelegate(
-                  SearchMovieBloc(searchMovies: getItInstance<SearchMovies>()),
+                  SearchMovieBloc(
+                      searchMovies: getItInstance<SearchMovies>(),
+                      loadingBloc: getItInstance<LoadingBloc>()),
                 ),
               );
             },

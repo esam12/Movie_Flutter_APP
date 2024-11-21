@@ -31,6 +31,7 @@ import 'package:movieapp/domain/usecases/update_language.dart';
 import 'package:movieapp/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movieapp/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
+import 'package:movieapp/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movieapp/presentation/blocs/login/login_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
@@ -128,6 +129,7 @@ Future init() async {
   getItInstance.registerFactory(() => MovieCarouselBloc(
         getItInstance(),
         getItInstance(),
+        loadingBloc: getItInstance(),
       ));
 
   getItInstance.registerFactory(() => MovieBackdropBloc());
@@ -151,6 +153,7 @@ Future init() async {
       castBloc: getItInstance(),
       videosBloc: getItInstance(),
       favoriteBloc: getItInstance(),
+      loadingBloc: getItInstance(),
     ),
   );
 
@@ -169,6 +172,7 @@ Future init() async {
   getItInstance.registerFactory(
     () => SearchMovieBloc(
       searchMovies: getItInstance(),
+      loadingBloc: getItInstance(),
     ),
   );
   getItInstance.registerFactory(
@@ -180,6 +184,13 @@ Future init() async {
   );
 
   getItInstance.registerFactory(
-    () => LoginBloc(loginUser: getItInstance(), logoutUser: getItInstance()),
+    () => LoginBloc(
+        loginUser: getItInstance(),
+        logoutUser: getItInstance(),
+        loadingBloc: getItInstance()),
+  );
+
+  getItInstance.registerSingleton<LoadingBloc>(
+    LoadingBloc(),
   );
 }

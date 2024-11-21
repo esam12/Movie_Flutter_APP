@@ -7,6 +7,7 @@ import 'package:movieapp/domain/entities/login_request_params.dart';
 import 'package:movieapp/domain/entities/no_params.dart';
 import 'package:movieapp/domain/usecases/login_user.dart';
 import 'package:movieapp/domain/usecases/logout_user.dart';
+import 'package:movieapp/presentation/blocs/loading/loading_bloc.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -14,12 +15,18 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUser loginUser;
   final LogoutUser logoutUser;
+  final LoadingBloc loadingBloc;
 
-  LoginBloc({required this.loginUser, required this.logoutUser})
+  LoginBloc(
+      {required this.loginUser,
+      required this.logoutUser,
+      required this.loadingBloc})
       : super(LoginInitial()) {
     on<LoginEvent>(
       (event, emit) async {
         if (event is LoginInitiateEvent) {
+          loadingBloc.add(StartLoading());
+
           final Either<AppError, bool> eitherResponse = await loginUser(
             LoginRequestParams(
               userName: event.username,
@@ -33,6 +40,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             },
             (r) => emit(LoginSuccess()),
           );
+          loadingBloc.add(StopLoading());
         } else if (event is LogoutEvent) {
           await logoutUser(NoParams());
           emit(LogoutSuccess());
