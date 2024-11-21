@@ -9,6 +9,7 @@ import 'package:movieapp/presentation/journeys/home/movie_carousel/app_error_wid
 import 'package:movieapp/presentation/journeys/home/movie_tabbed/movie_list_view_builder.dart';
 import 'package:movieapp/presentation/journeys/home/movie_tabbed/movie_tabbed_constants.dart';
 import 'package:movieapp/presentation/journeys/home/movie_tabbed/tab_title_widget.dart';
+import 'package:movieapp/presentation/journeys/loading/loading_circle.dart';
 
 class MovieTabbedWidget extends StatefulWidget {
   const MovieTabbedWidget({super.key});
@@ -80,6 +81,14 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget>
                   onPressed: () => movieTabbedBloc.add(
                     MovieTabChangedEvent(
                         currentTabIndex: state.currentTabIndex),
+                  ),
+                ),
+              ),
+            if (state is MovieTabLoading)
+              Expanded(
+                child: Center(
+                  child: LoadingCircle(
+                    size: Sizes.dimen_100.w,
                   ),
                 ),
               )

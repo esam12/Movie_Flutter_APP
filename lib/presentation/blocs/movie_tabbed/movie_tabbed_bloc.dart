@@ -23,6 +23,7 @@ class MovieTabbedBloc extends Bloc<MovieTabbedEvent, MovieTabbedState> {
   }) : super(MovieTabbedInitial()) {
     on<MovieTabbedEvent>((event, emit) async {
       if (event is MovieTabChangedEvent) {
+        emit(MovieTabLoading(currentTabIndex: event.currentTabIndex));
         late Either<AppError, List<MovieEntity>> moviesEither;
         switch (event.currentTabIndex) {
           case 0:
