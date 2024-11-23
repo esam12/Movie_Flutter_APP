@@ -1,10 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:movieapp/domain/entities/no_params.dart';
 import 'package:movieapp/domain/usecases/get_preferred_theme.dart';
 import 'package:movieapp/domain/usecases/update_theme.dart';
-
-part 'theme_state.dart';
 
 enum Themes { light, dark }
 
