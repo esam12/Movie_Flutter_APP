@@ -24,5 +24,6 @@
     "noNetwork": "Bağlantı yok",
     "sessionDenied": "Oturum reddedildi",
     "enterTMDbUsername": "TMDb kullanıcı adı girin...",
-    "enterPassword": "Şifre girin..."
+    "enterPassword": "Şifre girin...",
+    "guestSignIn": "Misafir Girişi"
 }

@@ -24,6 +24,7 @@
     "noNetwork": "لا يوجد اتصال بالشبكة",
     "sessionDenied": "تم رفض الجلسة",
     "enterTMDbUsername": "أدخل اسم المستخدم هنا...",
-    "enterPassword": "أدخل كلمة المرور هنا..."
+    "enterPassword": "أدخل كلمة المرور هنا...",
+    "guestSignIn": "تسجيل دخول كضيف"
 
 }
