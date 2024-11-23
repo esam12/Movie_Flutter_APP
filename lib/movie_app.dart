@@ -9,6 +9,7 @@ import 'package:movieapp/presentation/app_localizations.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
 import 'package:movieapp/presentation/blocs/loading/loading_bloc.dart';
 import 'package:movieapp/presentation/blocs/login/login_bloc.dart';
+import 'package:movieapp/presentation/blocs/theme/theme/theme_cubit.dart';
 import 'package:movieapp/presentation/fade_page_route_builder.dart';
 import 'package:movieapp/presentation/journeys/loading/loading_screen.dart';
 import 'package:movieapp/presentation/routes.dart';
@@ -27,6 +28,7 @@ class _MovieAppState extends State<MovieApp> {
   late LanguageBloc _languageBloc;
   late LoginBloc _loginBloc;
   late LoadingBloc _loadingBloc;
+  late ThemeCubit _themeCubit;
 
   @override
   void initState() {
@@ -34,7 +36,9 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc = getItInstance<LanguageBloc>();
     _loginBloc = getItInstance<LoginBloc>();
     _loadingBloc = getItInstance<LoadingBloc>();
+    _themeCubit = getItInstance<ThemeCubit>();
     _languageBloc.add(LoadPreferredLanguageEvent());
+    _themeCubit.loadPreferredTheme();
   }
 
   @override
@@ -42,6 +46,7 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc.close();
     _loginBloc.close();
     _loadingBloc.close();
+    _themeCubit.close();
     super.dispose();
   }
 
@@ -52,56 +57,102 @@ class _MovieAppState extends State<MovieApp> {
         BlocProvider<LanguageBloc>.value(value: _languageBloc),
         BlocProvider<LoginBloc>.value(value: _loginBloc),
         BlocProvider<LoadingBloc>.value(value: _loadingBloc),
+        BlocProvider<ThemeCubit>.value(value: _themeCubit)
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
-          return BlocProvider<LanguageBloc>.value(
-            value: _languageBloc,
-            child: BlocBuilder<LanguageBloc, LanguageState>(
-              builder: (context, state) {
-                if (state is LanguageLoaded) {
-                  return WiredashApp(
-                    child: MaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      title: 'Movie App',
-                      theme: ThemeData(
-                        primaryColor: AppColor.vulcan,
-                        colorScheme: const ColorScheme.dark(),
-                        scaffoldBackgroundColor: AppColor.vulcan,
-                        visualDensity: VisualDensity.adaptivePlatformDensity,
-                        textTheme: ThemeText.getTextTheme(),
-                        appBarTheme: const AppBarTheme(elevation: 0),
-                      ),
-                      supportedLocales: Languages.languages
-                          .map((e) => Locale(e.code))
-                          .toList(),
-                      locale: state.locale,
-                      localizationsDelegates: const [
-                        AppLocalizations.delegate,
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                      ],
-                      builder: (context, child) {
-                        return LoadingScreen(screen: child!);
-                      },
-                      initialRoute: RouteList.initial,
-                      onGenerateRoute: (RouteSettings settings) {
-                        final routes = Routes.getRoutes(settings);
-                        final WidgetBuilder builder =
-                            routes[settings.name] ?? routes[RouteList.initial]!;
-                        return FadePageRouteBuilder(
-                          builder: builder,
-                          settings: settings,
-                        );
-                      },
-                    ),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            ),
+          return BlocBuilder<ThemeCubit, Themes>(
+            builder: (context, theme) {
+              print(theme);
+              return BlocProvider<LanguageBloc>.value(
+                value: _languageBloc,
+                child: BlocBuilder<LanguageBloc, LanguageState>(
+                  builder: (context, state) {
+                    if (state is LanguageLoaded) {
+                      return WiredashApp(
+                        child: MaterialApp(
+                          debugShowCheckedModeBanner: false,
+                          title: 'Movie App',
+                          theme: ThemeData(
+                            brightness: theme == Themes.dark
+                                ? Brightness.dark
+                                : Brightness.light,
+                            colorScheme: theme == Themes.dark
+                                ? const ColorScheme.dark(
+                                    primary: Colors
+                                        .blue, // Customize colors for dark mode
+                                    secondary: Colors.green,
+                                  )
+                                : const ColorScheme.light(
+                                    primary: Colors
+                                        .blue, // Customize colors for light mode
+                                    secondary: Colors.green,
+                                  ),
+                            primaryColor: theme == Themes.dark
+                                ? AppColor.vulcan
+                                : Colors.white,
+                            //colorScheme: const ColorScheme.dark(),
+                            scaffoldBackgroundColor: theme == Themes.dark
+                                ? AppColor.vulcan
+                                : Colors.white,
+                            cardTheme: CardTheme(
+                              color: theme == Themes.dark
+                                  ? Colors.white
+                                  : AppColor.vulcan,
+                            ),
+                            inputDecorationTheme: InputDecorationTheme(
+                              hintStyle: Theme.of(context).textTheme.bodySmall,
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: theme == Themes.dark
+                                      ? Colors.white
+                                      : AppColor.vulcan,
+                                ),
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                            visualDensity:
+                                VisualDensity.adaptivePlatformDensity,
+                            textTheme: ThemeText.getTextTheme(),
+                            appBarTheme: const AppBarTheme(elevation: 0),
+                          ),
+                          supportedLocales: Languages.languages
+                              .map((e) => Locale(e.code))
+                              .toList(),
+                          locale: state.locale,
+                          localizationsDelegates: const [
+                            AppLocalizations.delegate,
+                            GlobalMaterialLocalizations.delegate,
+                            GlobalWidgetsLocalizations.delegate,
+                          ],
+                          builder: (context, child) {
+                            return LoadingScreen(screen: child!);
+                          },
+                          initialRoute: RouteList.initial,
+                          onGenerateRoute: (RouteSettings settings) {
+                            final routes = Routes.getRoutes(settings);
+                            final WidgetBuilder builder =
+                                routes[settings.name] ??
+                                    routes[RouteList.initial]!;
+                            return FadePageRouteBuilder(
+                              builder: builder,
+                              settings: settings,
+                            );
+                          },
+                        ),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+              );
+            },
           );
         },
       ),

@@ -40,6 +40,7 @@ import 'package:movieapp/presentation/blocs/movie_carousel/movie_carousel_bloc.d
 import 'package:movieapp/presentation/blocs/movie_detail/movie_detail_bloc.dart';
 import 'package:movieapp/presentation/blocs/movie_tabbed/movie_tabbed_bloc.dart';
 import 'package:movieapp/presentation/blocs/search_movie/search_movie_bloc.dart';
+import 'package:movieapp/presentation/blocs/theme/theme/theme_cubit.dart';
 import 'package:movieapp/presentation/blocs/videos/videos_bloc.dart';
 
 final getItInstance = GetIt.I;
@@ -201,5 +202,12 @@ Future init() async {
 
   getItInstance.registerSingleton<LoadingBloc>(
     LoadingBloc(),
+  );
+
+  getItInstance.registerSingleton<ThemeCubit>(
+    ThemeCubit(
+      updateTheme: getItInstance(),
+      getPreferredTheme: getItInstance(),
+    ),
   );
 }

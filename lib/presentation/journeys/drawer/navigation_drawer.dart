@@ -8,9 +8,11 @@ import 'package:movieapp/common/constants/translation_constants.dart';
 import 'package:movieapp/common/extensions/string_extensions.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
 import 'package:movieapp/presentation/blocs/login/login_bloc.dart';
+import 'package:movieapp/presentation/blocs/theme/theme/theme_cubit.dart';
 import 'package:movieapp/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:movieapp/presentation/journeys/drawer/navigation_list_item.dart';
 import 'package:movieapp/presentation/journeys/favorite/favorite_screen.dart';
+import 'package:movieapp/presentation/themes/app_color.dart';
 import 'package:movieapp/presentation/widgets/app_dialog.dart';
 import 'package:movieapp/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -93,6 +95,24 @@ class MNavigationDrawer extends StatelessWidget {
                 },
               ),
             ),
+            const Spacer(),
+            BlocBuilder<ThemeCubit, Themes>(builder: (context, theme) {
+              return Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                  onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+                  icon: Icon(
+                    theme == Themes.dark
+                        ? Icons.brightness_4_sharp
+                        : Icons.brightness_7_sharp,
+                    color: context.read<ThemeCubit>().state == Themes.dark
+                        ? Colors.white
+                        : AppColor.vulcan,
+                    size: Sizes.dimen_40.w,
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),
