@@ -4,7 +4,7 @@
    <item android:drawable="@android:color/white" />
       <item>
         <shape>
-            <gradient android:angle="250"
+            <gradient android:angle="270"
                 android:startColor="#141221"
                 android:endColor="#604FEF" />
         </shape>

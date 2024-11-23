@@ -21,6 +21,7 @@ import 'package:movieapp/domain/usecases/get_movie_detail.dart';
 import 'package:movieapp/domain/usecases/get_playing_now.dart';
 import 'package:movieapp/domain/usecases/get_popular.dart';
 import 'package:movieapp/domain/usecases/get_preferred_language.dart';
+import 'package:movieapp/domain/usecases/get_preferred_theme.dart';
 import 'package:movieapp/domain/usecases/get_trending.dart';
 import 'package:movieapp/domain/usecases/get_videos.dart';
 import 'package:movieapp/domain/usecases/login_user.dart';
@@ -28,6 +29,7 @@ import 'package:movieapp/domain/usecases/logout_user.dart';
 import 'package:movieapp/domain/usecases/save_movie.dart';
 import 'package:movieapp/domain/usecases/search_movies.dart';
 import 'package:movieapp/domain/usecases/update_language.dart';
+import 'package:movieapp/domain/usecases/update_theme.dart';
 import 'package:movieapp/presentation/blocs/cast/cast_bloc.dart';
 import 'package:movieapp/presentation/blocs/favorite/favorite_bloc.dart';
 import 'package:movieapp/presentation/blocs/language/language_bloc.dart';
@@ -103,6 +105,13 @@ Future init() async {
   );
   getItInstance.registerLazySingleton<GetPreferredLanguage>(
     () => GetPreferredLanguage(getItInstance()),
+  );
+
+  getItInstance.registerLazySingleton<UpdateTheme>(
+    () => UpdateTheme(getItInstance()),
+  );
+  getItInstance.registerLazySingleton<GetPreferredTheme>(
+    () => GetPreferredTheme(getItInstance()),
   );
 
   getItInstance.registerLazySingleton<LoginUser>(
